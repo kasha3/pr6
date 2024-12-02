@@ -100,12 +100,10 @@
     <Folder Include="Pages\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\gmail.jpg">
+    <Resource Include="Images\empty_logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\empty_logo.jpg">
+    <Resource Include="Images\gmail.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
