@@ -11,10 +11,10 @@ namespace RegIN_Fadeev.Classes
             var smtpClient = new SmtpClient("smtp.yandex.ru")
             {
                 Port = 587,
-                Credentials = new NetworkCredential("yandex@yandex.ru", "password"),
+                Credentials = new NetworkCredential("yandex@yandex.ru", "blhlbievoaadxhef"),
                 EnableSsl = true,
             };
-            smtpClient.Send("landaxer@yandex.ru", To, "Проект RegIn" ,Message);
+            smtpClient.Send("reginpr6@yandex.ru", To, "Проект RegIn" ,Message);
         }
     }
 }
