@@ -48,7 +48,7 @@ namespace RegIN_Fadeev.Elements
                 Capture.Children.Add(LBackground);
             }
         }
-        void Background()
+        private void Background()
         {
             Random ThisRandom = new Random();
             for (int i = 0; i < 4; i++)

@@ -32,7 +32,8 @@
                 <TextBox x:Name="TbName" Height="23" Margin="10,237,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" PreviewTextInput="SetName"/>
                 <Label Content="Enter password:" Margin="10,265,10,0" VerticalAlignment="Top"/>
                 <PasswordBox x:Name="TbPassword" Margin="10,289,10,0" VerticalAlignment="Top" Height="26" KeyDown="SetPassword" LostFocus="SetPassword"/>
-                <Label Content="Confirm the password:" Margin="10,344,10,0" VerticalAlignment="Top" Height="26" KeyDown="ConfirmPassword" LostFocus="ConfirmPassword"/>
+                <Label Content="Confirm the password:" Margin="10,320,10,0" VerticalAlignment="Top" Height="26" KeyDown="ConfirmPassword" LostFocus="ConfirmPassword"/>
+                <PasswordBox x:Name="TbConfirmPassword" Margin="10,344,10,0" VerticalAlignment="Top" Height="26" KeyDown="ConfirmPassword" LostFocus="ConfirmPassword"/>
                 <Label Content="Back" Margin="10,373,10,0" VerticalAlignment="Top" Foreground="#FF673AB7" FontSize="10" MouseDown="OpenLogin"/>
             </Grid>
         </materialDesign:Card>
