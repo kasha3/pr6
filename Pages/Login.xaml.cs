@@ -74,7 +74,7 @@ namespace RegIN_Fadeev.Pages
 
         public void InCorrectLogin()
         {
-            if (LNameUser.Content != "")
+            if (LNameUser.Content.ToString() != "")
             {
                 LNameUser.Content = "";
                 DoubleAnimation StartAnimation = new DoubleAnimation();
