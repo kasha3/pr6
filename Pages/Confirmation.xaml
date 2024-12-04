@@ -19,7 +19,7 @@
     <Grid>
         <materialDesign:Card Height="304" VerticalAlignment="Center" HorizontalAlignment="Center" Width="307">
             <Grid>
-                <Image HorizontalAlignment="Center" VerticalAlignment="Top" Height="100" Margin="32" Width="100" Source="/RegIN_Fadeev;component/Images/empty_logo.png">
+                <Image HorizontalAlignment="Center" VerticalAlignment="Top" Height="100" Margin="32" Width="100" Source="/RegIN_Fadeev;component/Images/gmail.png">
                     <Image.Clip>
                         <EllipseGeometry RadiusX="50" RadiusY="50" Center="50, 50"/>
                     </Image.Clip>
