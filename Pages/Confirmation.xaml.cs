@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace RegIN_Fadeev.Pages
 {
@@ -46,19 +36,26 @@ namespace RegIN_Fadeev.Pages
         }
         public void TimerSendMailCode()
         {
-            for (int i = 0; i < 60; i++)
+            try
             {
+                for (int i = 0; i < 60; i++)
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        LTimer.Content = $"A second message can be sent after {(60 - i)} seconds";
+                    });
+                    Thread.Sleep(1000);
+                }
                 Dispatcher.Invoke(() =>
                 {
-                    LTimer.Content = $"A second message can be sent after {(60 - i)} seconds";
+                    BSendMessage.IsEnabled = true;
+                    LTimer.Content = "";
                 });
-                Thread.Sleep(1000);
             }
-            Dispatcher.Invoke(() =>
+            catch (System.Threading.Tasks.TaskCanceledException ex)
             {
-                BSendMessage.IsEnabled = true;
-                LTimer.Content = "";
-            });
+                MessageBox.Show(ex.Message);
+            }
         }
         private void SendMail(object sender, RoutedEventArgs e)
         {

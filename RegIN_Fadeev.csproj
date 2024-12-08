@@ -67,6 +67,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\Animation.cs" />
     <Compile Include="Classes\SendMail.cs" />
     <Compile Include="Classes\User.cs" />
     <Compile Include="Classes\WorkingDB.cs" />

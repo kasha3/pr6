@@ -7,8 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Imaging = Aspose.Imaging;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using RegIN_Fadeev.Classes;
 
 namespace RegIN_Fadeev.Pages
 {
@@ -199,20 +199,7 @@ namespace RegIN_Fadeev.Pages
                     rasterImage.Crop(rectangle);
                     rasterImage.Save("IUser.jpg");
                 }
-                DoubleAnimation StartAnimation = new DoubleAnimation();
-                StartAnimation.From = 1;
-                StartAnimation.To = 0;
-                StartAnimation.Duration = TimeSpan.FromSeconds(0.6);
-                StartAnimation.Completed += delegate
-                {
-                    IUser.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\IUser.jpg"));
-                    DoubleAnimation EndAnimation = new DoubleAnimation();
-                    EndAnimation.From = 0;
-                    EndAnimation.To = 1;
-                    EndAnimation.Duration = TimeSpan.FromSeconds(1.2);
-                    IUser.BeginAnimation(System.Windows.Controls.Image.OpacityProperty, EndAnimation);
-                };
-                IUser.BeginAnimation(System.Windows.Controls.Image.OpacityProperty, StartAnimation);
+                Animation.ImageDoubleAnimation(IUser, new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\IUser.jpg")));
                 BSetImages = true;
             }
             else

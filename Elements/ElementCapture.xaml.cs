@@ -28,9 +28,9 @@ namespace RegIN_Fadeev.Elements
             Capture.Children.Clear();
             StrCapture = "";
             CreateBackground();
-            Background();
         }
         #region CreateCapture
+        //Объединение
         void CreateBackground()
         {
             Random ThisRandom = new Random();
@@ -47,10 +47,6 @@ namespace RegIN_Fadeev.Elements
                 };
                 Capture.Children.Add(LBackground);
             }
-        }
-        private void Background()
-        {
-            Random ThisRandom = new Random();
             for (int i = 0; i < 4; i++)
             {
                 int back = ThisRandom.Next(0, 10);
@@ -67,17 +63,12 @@ namespace RegIN_Fadeev.Elements
             }
         }
         #endregion
-        public bool OnCapture()
-        {
-            return StrCapture == InputCapture.Text;
-        }
+        public bool OnCapture() => StrCapture == InputCapture.Text;
         private void EnterCapture(object sender, KeyEventArgs e)
         {
             if (InputCapture.Text.Length == 4)
-                if (!OnCapture())
-                    CreateCapture();
-                else if (HandlerCorrectCapture != null)
-                    HandlerCorrectCapture.Invoke();
+                if (!OnCapture()) CreateCapture();
+                else if (HandlerCorrectCapture != null) HandlerCorrectCapture.Invoke();
         }
     }
 }
