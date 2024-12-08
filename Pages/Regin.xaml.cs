@@ -56,7 +56,7 @@ namespace RegIN_Fadeev.Pages
             }
             else
             {
-                SetNotification("Invalid login", Brushes.Red);
+                SetNotification("Invalid login \nexample: user@example.com", Brushes.Red);
             }
             OnRegin();
         }
@@ -90,7 +90,7 @@ namespace RegIN_Fadeev.Pages
             }
             else
             {
-                SetNotification("Inavlid password", Brushes.Red);
+                SetNotification("Inavlid password \nexample: Asdfg1234*", Brushes.Red);
             }
         }
         #endregion
@@ -157,54 +157,61 @@ namespace RegIN_Fadeev.Pages
 
         private void SelectImage(object sender, MouseButtonEventArgs e)
         {
-            File.Delete(Directory.GetCurrentDirectory() + @"\IUser.jpg");
-            if (FileDialogImage.ShowDialog() == true)
+            try
             {
-                using (Imaging.Image image = Imaging.Image.Load(FileDialogImage.FileName))
+                File.Delete(Directory.GetCurrentDirectory() + @"\IUser.jpg");
+                if (FileDialogImage.ShowDialog() == true)
                 {
-                    int NewWidth = 0;
-                    int NewHeight = 0;
-                    if (image.Width > image.Height)
+                    using (Imaging.Image image = Imaging.Image.Load(FileDialogImage.FileName))
                     {
-                        NewWidth = (int)(image.Width * (256f / image.Height));
-                        NewHeight = 256;
+                        int NewWidth = 0;
+                        int NewHeight = 0;
+                        if (image.Width > image.Height)
+                        {
+                            NewWidth = (int)(image.Width * (256f / image.Height));
+                            NewHeight = 256;
+                        }
+                        else
+                        {
+                            NewWidth = 256;
+                            NewHeight = (int)(image.Height * (256f / image.Width));
+                        }
+                        image.Resize(NewWidth, NewHeight);
+                        image.Save("IUser.jpg");
                     }
-                    else
+                    using (Imaging.RasterImage rasterImage = (Imaging.RasterImage)Imaging.Image.Load("IUser.jpg"))
                     {
-                        NewWidth = 256;
-                        NewHeight = (int)(image.Height * (256f / image.Width));
+                        if (!rasterImage.IsCached)
+                        {
+                            rasterImage.CacheData();
+                        }
+                        int X = 0;
+                        int Width = 256;
+                        int Y = 0;
+                        int Height = 256;
+                        if (rasterImage.Width > rasterImage.Height)
+                        {
+                            X = (int)((rasterImage.Width - 256f) / 2);
+                        }
+                        else
+                        {
+                            Y = (int)((rasterImage.Height - 256f) / 2);
+                        }
+                        Imaging.Rectangle rectangle = new Imaging.Rectangle(X, Y, Width, Height);
+                        rasterImage.Crop(rectangle);
+                        rasterImage.Save("IUser.jpg");
                     }
-                    image.Resize(NewWidth, NewHeight);
-                    image.Save("IUser.jpg");
+                    Animation.ImageDoubleAnimation(IUser, new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\IUser.jpg")));
+                    BSetImages = true;
                 }
-                using (Imaging.RasterImage rasterImage = (Imaging.RasterImage)Imaging.Image.Load("IUser.jpg"))
+                else
                 {
-                    if (!rasterImage.IsCached)
-                    {
-                        rasterImage.CacheData();
-                    }
-                    int X = 0;
-                    int Width = 256;
-                    int Y = 0;
-                    int Height = 256;
-                    if (rasterImage.Width > rasterImage.Height)
-                    {
-                        X = (int)((rasterImage.Width - 256f) / 2);
-                    }
-                    else
-                    {
-                        Y = (int)((rasterImage.Height - 256f) / 2);
-                    }
-                    Imaging.Rectangle rectangle = new Imaging.Rectangle(X, Y, Width, Height);
-                    rasterImage.Crop(rectangle);
-                    rasterImage.Save("IUser.jpg");
+                    BSetImages = false;
                 }
-                Animation.ImageDoubleAnimation(IUser, new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\IUser.jpg")));
-                BSetImages = true;
             }
-            else
+            catch (Exception ex)
             {
-                BSetImages = false;
+                return;
             }
         }
 

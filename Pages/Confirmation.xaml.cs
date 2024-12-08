@@ -17,16 +17,15 @@ namespace RegIN_Fadeev.Pages
         }
         TypeConfirmation ThisTypeConfirmation;
         public int Code = 0;
+        public static Confirmation conf;
         public Confirmation(TypeConfirmation typeConfirmation)
         {
             InitializeComponent();
             ThisTypeConfirmation = typeConfirmation;
+            conf = this;
             SendMailCode();
         }
-        private void OpenLogin(object sender, MouseButtonEventArgs e)
-        {
-            MainWindow.mainWindow.OpenPage(new Login());
-        }
+        private void OpenLogin(object sender, MouseButtonEventArgs e) => MainWindow.mainWindow.OpenPage(new Login());
         public void SendMailCode()
         {
             Code = new Random().Next(100000, 999999);
@@ -57,10 +56,7 @@ namespace RegIN_Fadeev.Pages
                 MessageBox.Show(ex.Message);
             }
         }
-        private void SendMail(object sender, RoutedEventArgs e)
-        {
-            SendMailCode();
-        }
+        private void SendMail(object sender, RoutedEventArgs e) => SendMailCode();
         private void SetCode(object sender, KeyEventArgs e)
         {
             if (TbCode.Text.Length == 6)
@@ -68,10 +64,7 @@ namespace RegIN_Fadeev.Pages
                 SetCode();
             }
         }
-        private void SetCode(object sender, RoutedEventArgs e)
-        {
-            SetCode();
-        }
+        private void SetCode(object sender, RoutedEventArgs e) => SetCode();
         void SetCode()
         {
             if (TbCode.Text == Code.ToString() && TbCode.IsEnabled == true)
@@ -80,11 +73,13 @@ namespace RegIN_Fadeev.Pages
                 if (ThisTypeConfirmation == TypeConfirmation.Login)
                 {
                     MessageBox.Show("Авторизация пользователя успешно подтверждена.");
+                    MainWindow.mainWindow.OpenPage(new PinCode(ThisTypeConfirmation));
                 }
                 else
                 {
                     MainWindow.mainWindow.UserLogin.SetUser();
                     MessageBox.Show("Регистрация пользователя успешно подтверждена.");
+                    MainWindow.mainWindow.OpenPage(new PinCode(ThisTypeConfirmation));
                 }
             }
         }
