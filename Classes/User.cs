@@ -30,8 +30,7 @@ namespace RegIN_Fadeev.Classes
             MySqlConnection mySqlConnection = WorkingDB.OpenConnection();
             if (WorkingDB.OpenConnection(mySqlConnection))
             {
-                MySqlDataReader userQuery = WorkingDB.Query($"SELECT *" +
-                    $"FROM 'users' WHERE 'Login' = '{Login}'", mySqlConnection);
+                MySqlDataReader userQuery = WorkingDB.Query($"SELECT * FROM `users` WHERE `Login` = '{Login}'", mySqlConnection);
                 if (userQuery.HasRows)
                 {
                     userQuery.Read();
@@ -61,16 +60,14 @@ namespace RegIN_Fadeev.Classes
             MySqlConnection mySqlConnection = WorkingDB.OpenConnection();
             if (WorkingDB.OpenConnection(mySqlConnection))
             {
-                MySqlCommand mySqlCommand = new MySqlCommand("INSERT INTO" +
-                    "'users'('Login', 'Password', 'Name', 'Image', 'DateUpdate', 'DateCreate')" +
-                    "VALUES (@Login, @Password, @Name, @Image, @DateUpdate, @DateCreate)", mySqlConnection);
-                mySqlCommand.Parameters.AddWithValue("@Login", this.Login);
-                mySqlCommand.Parameters.AddWithValue("@Password", this.Password);
-                mySqlCommand.Parameters.AddWithValue("@Name", this.Name);
-                mySqlCommand.Parameters.AddWithValue("@Image", this.Image);
-                mySqlCommand.Parameters.AddWithValue("@DateUpdate", this.DateUpdate);
-                mySqlCommand.Parameters.AddWithValue("@DateCreate", this.DateCreate);
-                mySqlCommand.ExecuteNonQuery();
+                MySqlCommand command = new MySqlCommand("INSERT INTO `users` (`Login`, `Password`, `Name`, `Image`, `DateUpdate`, `DateCreate`) VALUES (@Login, @Password, @Name, @Image, @DateUpdate, @DateCreate)", mySqlConnection);
+                command.Parameters.AddWithValue("@Login", this.Login);
+                command.Parameters.AddWithValue("@Password", this.Password);
+                command.Parameters.AddWithValue("@Name", this.Name);
+                command.Parameters.AddWithValue("@Image", this.Image);
+                command.Parameters.AddWithValue("@DateUpdate", this.DateUpdate);
+                command.Parameters.AddWithValue("@DateCreate", this.DateCreate);
+                command.ExecuteNonQuery();
             }
             WorkingDB.CloseConnection(mySqlConnection);
         }
@@ -80,11 +77,7 @@ namespace RegIN_Fadeev.Classes
             {
                 Password = GeneratePass();
                 MySqlConnection mySqlConnection = WorkingDB.OpenConnection();
-                if (WorkingDB.OpenConnection(mySqlConnection))
-                {
-                    WorkingDB.Query($"UPDATE 'users' SET" +
-                        $"'Password'='{this.Password}' WHERE 'Login' = '{this.Login}'", mySqlConnection);
-                }
+                if (WorkingDB.OpenConnection(mySqlConnection)) WorkingDB.Query($"UPDATE `users` SET `Password` = '{this.Password}' WHERE `Login` = '{this.Login}'", mySqlConnection);
                 WorkingDB.CloseConnection(mySqlConnection);
                 SendMail.SendMessage($"Your account password has been changed.\nNew Password: {this.Password}", this.Login);
             }

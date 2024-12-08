@@ -6,8 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using Aspose.Imaging;
-using System.Windows.Interop;
+using Imaging = Aspose.Imaging;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
@@ -50,7 +49,7 @@ namespace RegIN_Fadeev.Pages
         {
             Regex regex = new Regex(@"([a-zA-Z0-9._-]{4,}@[a-zA-Z0-9._-]{2,}\.[a-zA-Z0-9]{2,})");
             BCorrectLogin = regex.IsMatch(TbLogin.Text);
-            if (regex.IsMatch(TbLogin.Text) == true)
+            if (regex.IsMatch(TbLogin.Text))
             {
                 SetNotification("", Brushes.Black);
                 MainWindow.mainWindow.UserLogin.GetUserLogin(TbLogin.Text);
@@ -80,7 +79,7 @@ namespace RegIN_Fadeev.Pages
         {
             Regex regex = new Regex(@"(?=.*[0-9])(?=.*[!@#$%^&*\-_=])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*\-_=]{10,}");
             BCorrectPassword = regex.IsMatch(TbPassword.Password);
-            if (regex.IsMatch(TbPassword.Password) == true)
+            if (regex.IsMatch(TbPassword.Password))
             {
                 SetNotification("", Brushes.Black);
                 if (TbConfirmPassword.Password.Length > 0)
@@ -158,9 +157,10 @@ namespace RegIN_Fadeev.Pages
 
         private void SelectImage(object sender, MouseButtonEventArgs e)
         {
+            File.Delete(Directory.GetCurrentDirectory() + @"\IUser.jpg");
             if (FileDialogImage.ShowDialog() == true)
             {
-                using (Aspose.Imaging.Image image = Aspose.Imaging.Image.Load(FileDialogImage.FileName))
+                using (Imaging.Image image = Imaging.Image.Load(FileDialogImage.FileName))
                 {
                     int NewWidth = 0;
                     int NewHeight = 0;
@@ -177,7 +177,7 @@ namespace RegIN_Fadeev.Pages
                     image.Resize(NewWidth, NewHeight);
                     image.Save("IUser.jpg");
                 }
-                using (Aspose.Imaging.RasterImage rasterImage = (Aspose.Imaging.RasterImage)Aspose.Imaging.Image.Load("IUser.jpg"))
+                using (Imaging.RasterImage rasterImage = (Imaging.RasterImage)Imaging.Image.Load("IUser.jpg"))
                 {
                     if (!rasterImage.IsCached)
                     {
@@ -195,7 +195,7 @@ namespace RegIN_Fadeev.Pages
                     {
                         Y = (int)((rasterImage.Height - 256f) / 2);
                     }
-                    Aspose.Imaging.Rectangle rectangle = new Aspose.Imaging.Rectangle(X, Y, Width, Height);
+                    Imaging.Rectangle rectangle = new Imaging.Rectangle(X, Y, Width, Height);
                     rasterImage.Crop(rectangle);
                     rasterImage.Save("IUser.jpg");
                 }
