@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using static RegIN_Fadeev.Pages.Confirmation;
 
 namespace RegIN_Fadeev.Pages
 {
@@ -87,7 +88,14 @@ namespace RegIN_Fadeev.Pages
                 {
                     if (MainWindow.mainWindow.UserLogin.Password == TbPassword.Password)
                     {
-                        MainWindow.mainWindow.OpenPage(new Confirmation(Confirmation.TypeConfirmation.Login));
+                        if (MainWindow.mainWindow.UserLogin.PinCode != null)
+                        {
+                            MainWindow.mainWindow.OpenPage(new PinCode(Confirmation.TypeConfirmation.Login));
+                        }
+                        else
+                        {
+                            MainWindow.mainWindow.OpenPage(new Confirmation(Confirmation.TypeConfirmation.Login));
+                        }
                     }
                     else
                     {

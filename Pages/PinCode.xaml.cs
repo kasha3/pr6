@@ -103,7 +103,7 @@ namespace RegIN_Fadeev.Pages
             LbPinCode.Foreground = _Color;
         }
 
-        private void OpenMain(object sender, MouseButtonEventArgs e) => MessageBox.Show("Successful pin code entry, welcome!");
+        private void OpenMain(object sender, MouseButtonEventArgs e) => MessageBox.Show("Welcome!");
 
         private void BackPage(object sender, MouseButtonEventArgs e) => MainWindow.mainWindow.OpenPage(new Login());
     }

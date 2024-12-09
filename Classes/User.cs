@@ -44,9 +44,9 @@ namespace RegIN_Fadeev.Classes
                     }
                     this.DateUpdate = userQuery.GetDateTime(5);
                     this.DateCreate = userQuery.GetDateTime(6);
-                    if (userQuery.IsDBNull(7))
+                    if (!userQuery.IsDBNull(7))
                     {
-                        this.PinCode = string.Empty;
+                        this.PinCode = userQuery.GetString(7);
                     }
                     HandlerCorrectLogin.Invoke();
                 }
